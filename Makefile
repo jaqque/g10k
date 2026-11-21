@@ -6,18 +6,20 @@ ZSHRC ?= $(or ${ZDOTDIR}, ${HOME})/.zshrc.local
 
 .PHONY: install
 install: $(G10K_ZSH) $(ZSHRC)
-	# @cp -a ${FUNCTIONS} "$(G10K_FUNCTIONS)"
-	install \
+	@printf '[C] g10k -> %s\n' "$(G10K_FUNCTIONS)"
+	@install \
 		-D \
 		--mode=0444 \
 		--target-directory="$(G10K_FUNCTIONS)" \
 		$(FUNCTIONS)
-	grep -q g10k.zsh $(ZSHRC) \
-		|| { printf '\n# g10k\nsource "%s"\n' "$(G10K_HOME)/g10k.zsh" \
-		>> "$(ZSHRC)"; }
+	@grep -q g10k.zsh $(ZSHRC) \
+		|| { printf '[M] Adding g10k.zsh to %s\n' "$(ZSHRC)";\
+		     printf '\n# g10k\nsource "%s"\n' "$(G10K_HOME)/g10k.zsh" \
+		     >> "$(ZSHRC)"; }
 
 $(G10K_ZSH): g10k.zsh
-	install \
+	@printf '[C] %s -> %s\n' "$<" "$A"
+	@install \
 		-D \
 		--mode=0444 \
 		g10k.zsh \
@@ -26,7 +28,8 @@ $(G10K_ZSH): g10k.zsh
 # $(FUNCTIONS):
 
 $(ZSHRC):
-	install \
+	@printf '[C] Makign empty %s\n' "$@"
+	@install \
 		-D \
 		--mode=0644 \
 		/dev/null \
