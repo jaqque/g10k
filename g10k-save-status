@@ -1,0 +1,2 @@
+_g10k_status=$?
+_g10k_pipestatus=($pipestatus)

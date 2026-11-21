@@ -1,0 +1,4 @@
+(( SHLVL > 1 )) && REPLY=" %B\$%b$(( SHLVL ))"
+# (( SHLVL > 1 )) && REPLY=" %B💲%b$(( SHLVL - 1 ))"
+# (( SHLVL > 1 )) && REPLY=" %B＄%b$(( SHLVL - 1 ))"
+# (( SHLVL > 1 )) && REPLY=" %B﹩%b$(( SHLVL - 1 ))"

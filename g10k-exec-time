@@ -1,0 +1,31 @@
+  (( $__exec_timestamp )) || return
+  local -i exec_duration=$(( SECONDS - __exec_timestamp ))
+  __exec_timestamp=0
+  (( $exec_duration >= 5 )) || return
+  REPLY="$(( exec_duration % 60 ))s"
+  if (( exec_duration >= 60 )); then
+    REPLY="$(( exec_duration / 60 % 60 ))m $REPLY"
+    if (( exec_duration >= 3600 )); then
+      REPLY="$(( exec_duration / 3600 % 24 ))h $REPLY"
+      if (( exec_duration >= 86400 )); then
+        REPLY="$(( d / 86400 ))d $REPLY"
+      fi
+    fi
+  fi
+  REPLY="  $REPLY"
+  # this shows idle time at prompt if you just hit return. feature? bug? idk
+  # except i fixed it - resetting the timestamp to 0 and checking that prevents
+  # that particular bug
+  # p10k shows "1m 1s" for "61s"
+  # p10k shows "  1h 0m 1s" for "3601s"
+#     local text="$((d % 60))s"
+#     if (( d >= 60 )); then
+#       text="$((d / 60 % 60))m $text"
+#       if (( d >= 3600 )); then
+#         text="$((d / 3600 % 24))h $text"
+#         if (( d >= 86400 )); then
+#           text="$((d / 86400))d $text"
+#         fi
+#       fi
+#     fi
+

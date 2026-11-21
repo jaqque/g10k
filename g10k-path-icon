@@ -1,0 +1,15 @@
+# - dir
+#   -   icon + path
+#   - icons
+#     -    $HOME
+#     -    unwritable
+#     -    writable - under $HOME
+#     -    writable, not under $HOME
+
+[ ! -w . ] && { REPLY=' '; return }
+
+case $PWD in
+  $HOME) REPLY=' ' ;;
+  $HOME/*) REPLY=' ' ;;
+  *) REPLY=' ' ;;
+esac

@@ -1,0 +1,4 @@
+[[ -n $SSH_CLIENT || -n $SSH_TTY || -n $SSH_CONNECTION ]] \
+  && REPLY=' %n@%m'
+
+# userName (at) Machine

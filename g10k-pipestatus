@@ -1,0 +1,18 @@
+if (( $_g10k_status != $_g10k_pipestatus[-1] )); then
+  if (( $_g10k_status != 0 )); then
+    REPLY=" %F{160}✘${_g10k_signames[$_g10k_status]:-$_g10k_status}"
+  fi
+  return
+fi
+if [[ $_g10k_pipestatus[*] != 0 ]]; then
+  local i signum
+  for ((i=1; i<=$#_g10k_pipestatus; ++i)) {
+    signum=$_g10k_pipestatus[i]
+    _g10k_pipestatus[i]=${_g10k_signames[$signum]:-$signum}
+  }
+  REPLY="${(j:|:)_g10k_pipestatus}"
+  if (( $_g10k_status == 0 ))
+    then REPLY=" %F{70}✔$REPLY"
+    else REPLY=" %F{160}✘$REPLY"
+  fi
+fi

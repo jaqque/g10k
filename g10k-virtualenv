@@ -1,0 +1,3 @@
+[[ -z $VIRTUAL_ENV ]] && return
+REPLY=${VIRTUAL_ENV_PROMPT:+ %F{23}𝒗%F{37}${${VIRTUAL_ENV_PROMPT#\(}%\) }}
+REPLY=${REPLY:- %F{23}𝒗%F{37}${VIRTUAL_ENV##*/}}

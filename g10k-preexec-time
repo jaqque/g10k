@@ -1,0 +1,2 @@
+# could use $EPOCHREALTIME if zsh/datetime is loaded
+__exec_timestamp=$SECONDS

@@ -1,0 +1,65 @@
+# REPLY=${${(%):-%(2~|%F{39}%-1~%F{131}/%(5~|…/%3~|%3~)|)}%/*}${(%):-%(2~|/|)}${(%):-%F{39}%1~%f}
+# work around g10k-path:1: bad pattern: (5~|%-1~%F{31
+# when the first line is quoted
+#REPLY="${${(%):-%(2~|%F{39}%-1~%F{131}/%(5~|…/%3~|%3~)|)}%/*}"\
+#REPLY="${(%):-%(2~|%F{39}%-1~%F{131}/%(5~|…/%3~|%3~)|)}"\
+#"${(%):-%(2~|/|)}"\
+#"${(%):-%F{39}%1~%f}"
+#REPLY=" $REPLY "
+
+# new plan - nested $(~||)!
+REPLY=' %(5~|%-1~/…/%3~|%4~) '
+
+# end result:
+#   0  segments) highlighted
+#   1  segment)  highlighted
+#   2  segments) highlighted
+#   3+ segments) first & last segments highlighted, rest lowlighted
+#   use paramter expansion to peel off last segment
+
+local _hi_segment='%B%F{39}'
+local _lo_segment='%b%F{31}'
+local _path='%(5~,%-1~/…/%3~,%~)'
+local _first_segment="${(%):-%(2~,%-1~,)}"
+local _last_segment="${(%):-%1~}"
+REPLY=\
+"${(%):-$_hi_segment$_first_segment$_lo_segment}"\
+"${${${(%):-$_path}#$_first_segment}%$_last_segment}"\
+"${(%):-$_hi_segment$_last_segment%f%b}"\
+" "
+
+# BUG: an extra space is getting inserted, sometimes
+#    /
+#    /Users
+#     ~
+#    ~/Projects/zshrc [main!+]
+#    ~/…/liquidprompt/themes/alternate_vcs [master]
+#     /Volumes/…/home/jaqque/foundry-container
+#     ~here
+
+# ${                          |
+#   ${(%):-                   |
+#      %(2~                   | if at least two (named) directory parts
+#          |%F{39}            | then, color bright blue
+#           %(5~              |   if at lest five (named) directory parts
+#               |%-1~         |   then, display first part
+#                %F{31}       |         color blue
+#                /…/          |         separator section
+#                %3~          |         last three parts
+#               |%4~          |   else, use the whole path
+#           )                 |
+#          |                  | else, do nothing
+#      )                      |
+#   }%/*                      | remove last part of the path
+# }                           |
+# ${(%):-                     |
+#     %(2~                    | if at least two (named) directory parts
+#         |/                  | then, add a /
+#         |                   | else, don't
+#     )                       |
+# }                           |
+# ${(%):-                     |
+#     %F{39}                  | color bright blue
+#     %1~                     | display last part of path
+#     %f                      | reset foreground
+# }                           |
