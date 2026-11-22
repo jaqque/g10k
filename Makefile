@@ -33,20 +33,16 @@ help menu:
 
 $(G10K_ZSH_FILE): g10k.zsh
 	@printf '[C] %s -> %s\n' '$<' '$@'
-	@install \
-		-D \
-		-m 0444 \
-		g10k.zsh \
-		'$@'
+	@mkdir -p '$(G10K_HOME_DIR)'
+	@cp -f '$<' '$@'
 	@sed -i -e 's"## FUNCTIONS PATH ##"$(G10K_FUNCTION_DIR)"' '$@'
+	@chmod 0444 '$@'
 
 $(G10K_FUNCTION_DIR)/%: %
 	@printf '[C] %s -> %s\n' '$<' '$@'
-	@install \
-		-D \
-		-m 0444 \
-		'$<' \
-		'$@'
+	@mkdir -p '$(G10K_FUNCTION_DIR)'
+	@cp -f '$<' '$@'
+	@chmod 0444 '$@'
 
 $(ZSHRC):
 	@printf '[C] Making empty %s\n' '$@'
