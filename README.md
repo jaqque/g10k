@@ -26,6 +26,11 @@ Manually:
 
 Good luck. Have at. Unsupported.
 
+## Environment
+
+- `G10K_REPORTTIME`: time in seconds for the prompt to show clock time
+  of previous command. If unset, uses `$REPORTTIME`. If both are unset, 5.
+
 <!-- --------------------------------------------------------------------- -->
 
 [GRML]: https://grml.org/zsh/ "Zsh"

@@ -1,7 +1,9 @@
-  (( $__exec_timestamp )) || return
+  (( __exec_timestamp )) || return
   local -i exec_duration=$(( SECONDS - __exec_timestamp ))
   __exec_timestamp=0
-  (( $exec_duration >= 5 )) || return
+  local -i reporttime=${G10K_REPORTTIME:-${REPORTTIME:-5}}
+  (( reporttime >= 0 )) || return
+  (( exec_duration >= reporttime )) || return
   REPLY="$(( exec_duration % 60 ))s"
   if (( exec_duration >= 60 )); then
     REPLY="$(( exec_duration / 60 % 60 ))m $REPLY"
