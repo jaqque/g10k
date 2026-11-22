@@ -9,7 +9,7 @@ precmd_functions=(g10k-save-status $precmd_functions)
 # colors! https://www.ditig.com/publications/256-colors-cheat-sheet
 
 # add iterm2 mark token
-if typeset -f iterm2_prompt_mark; then
+if [[ $+functions[iterm2_prompt_mark] ]]; then
   grml_theme_has_token iterm2_mark \
     || grml_theme_add_token iterm2_mark "$(iterm2_prompt_mark)" '%{' '%}'
 else
