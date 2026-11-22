@@ -1,6 +1,6 @@
 # replicating Powerlevel 10K (lean) in GRML
 
-fpath+=~/.g10k/functions
+fpath+=## FUNCTIONS PATH ##
 autoload -Uz ${fpath[-1]}/*(:t)
 
 preexec_functions+=g10k-preexec-time
