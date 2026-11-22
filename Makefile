@@ -29,7 +29,7 @@ help menu:
 	@printf '- G10K_ZSH_FILE: location of theme loader\n'
 	@printf '  Default: $$(G10K_HOME_DIR)/g10k.zsh\n'
 	@printf '- ZSHRC: location of zshrc.local file\n'
-	@printf '   Default: $$ZDOTDIR/.zshrc.local or $$HOME/.zshrc.local\n'
+	@printf '  Default: $$ZDOTDIR/.zshrc.local or $$HOME/.zshrc.local\n'
 
 $(G10K_ZSH_FILE): g10k.zsh
 	@printf '[C] %s -> %s\n' '$<' '$@'
