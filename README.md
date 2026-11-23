@@ -31,6 +31,15 @@ Good luck. Have at. Unsupported.
 - `G10K_REPORTTIME`: time in seconds for the prompt to show clock time
   of previous command. If unset, uses `$REPORTTIME`. If both are unset, 5.
 
+## Compatibility
+
+This project makes no aims for any compatibility with any other prompt.
+This includes, but is not limited to, Powerlevel9k, Powerlevel10k, and
+Grml.
+
+This project relies on the Grml prompt functions, but in a future revision
+may go purely zsh native.
+
 <!-- --------------------------------------------------------------------- -->
 
 [GRML]: https://grml.org/zsh/ "Zsh"
